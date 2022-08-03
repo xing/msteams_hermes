@@ -7,8 +7,8 @@ module MsTeamsHermes
     class ColumnSet < Base
       def initialize(args)
         super
-        @columns = args[:columns]
 
+        @columns = args[:columns]
         raise "ColumnSet `columns` cannot be empty" if @columns.nil?
         raise "ColumnSet `columns` must be an Array" unless @columns.is_a? Array
       end

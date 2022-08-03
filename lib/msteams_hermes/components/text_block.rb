@@ -12,11 +12,12 @@ module MsTeamsHermes
     class TextBlock < Base
       def initialize(args)
         super
-        @text = args[:text]
 
+        @text = args[:text]
         raise "TextBlock `text` cannot be empty" if @text.nil?
         raise "TextBlock `text` must be a String" unless @text.is_a? String
 
+        @wrap = args[:wrap] || false
         @color = args[:color] || Style::Colors::DEFAULT
         @size = args[:size] || Style::FontSize::DEFAULT
         @font_type = args[:font_type] || Style::FontType::DEFAULT
@@ -30,7 +31,8 @@ module MsTeamsHermes
           color: @color,
           size: @size,
           font_type: @font_type,
-          weight: @weight
+          weight: @weight,
+          wrap: @wrap
         }
       end
     end

@@ -10,8 +10,8 @@ module MsTeamsHermes
     class AdaptiveCard < Base
       def initialize(args)
         super
-        @body = args[:body]
 
+        @body = args[:body]
         raise "AdaptiveCard `body` cannot be empty" if @body.nil?
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
       end
