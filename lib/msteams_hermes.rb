@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "msteams_hermes/version"
+require_relative "msteams_hermes/message"
 
-module MsTeamsHermes
-  class Error < StandardError; end
-  # Your code goes here...
-end
+module MsTeamsHermes; end
