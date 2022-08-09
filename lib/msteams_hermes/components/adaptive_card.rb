@@ -14,13 +14,17 @@ module MsTeamsHermes
         @body = args[:body]
         raise "AdaptiveCard `body` cannot be empty" if @body.nil?
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
+
+        @actions = args[:actions]
+        raise "AdaptiveCard `actions` must be an Array" unless @actions.nil? || @actions.is_a?(Array)
       end
 
       def to_hash
         {
           type: "AdaptiveCard",
           version: "1.5",
-          body: @body.map(&:to_hash)
+          body: @body.map(&:to_hash),
+          actions: @actions&.map(&:to_hash)
         }
       end
     end
