@@ -4,6 +4,10 @@ require "msteams_hermes/actions/base"
 
 module MsTeamsHermes
   module Actions
+    ##
+    # A class representing Microsoft's Action.OpenUrl object
+    # https://adaptivecards.io/explorer/Action.OpenUrl.html
+    ##
     class OpenUrl < Base
       def initialize(args)
         super

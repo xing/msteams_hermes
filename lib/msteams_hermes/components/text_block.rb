@@ -3,10 +3,13 @@
 require "msteams_hermes/style"
 
 module MsTeamsHermes
+  ##
+  # Module containing Microsoft's components representations
+  ##
   module Components
     include MsTeamsHermes::Style
-
     ##
+    # A class representing Microsoft's TextBlock object
     # https://adaptivecards.io/explorer/TextBlock.html
     ##
     class TextBlock < Base

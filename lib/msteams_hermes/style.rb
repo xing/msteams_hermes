@@ -7,6 +7,9 @@ require "msteams_hermes/style/font_type"
 require "msteams_hermes/style/font_weight"
 
 module MsTeamsHermes
+  ##
+  # Module containing Microsoft's style representations
+  ##
   module Style
     include MsTeamsHermes::Style::Colors
     include MsTeamsHermes::Style::ContainerStyle

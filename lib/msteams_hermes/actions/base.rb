@@ -4,6 +4,9 @@ require "msteams_hermes/components/base"
 
 module MsTeamsHermes
   module Actions
+    ##
+    # Base class of Actions representations
+    ##
     class Base
       def initialize(args); end
 

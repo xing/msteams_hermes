@@ -3,8 +3,12 @@
 require "msteams_hermes/components/base"
 
 module MsTeamsHermes
+  ##
+  # Module containing Microsoft's components representations
+  ##
   module Components
     ##
+    # A class representing Microsoft's AdaptiveCard object
     # https://adaptivecards.io/explorer/AdaptiveCard.html
     ##
     class AdaptiveCard < Base

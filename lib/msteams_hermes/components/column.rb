@@ -3,7 +3,14 @@
 require "msteams_hermes/style"
 
 module MsTeamsHermes
+  ##
+  # Module containing Microsoft's components representations
+  ##
   module Components
+    ##
+    # A class representing Microsoft's Column object
+    # https://adaptivecards.io/explorer/Column.html
+    ##
     class Column < Base
       def initialize(args)
         super
