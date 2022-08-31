@@ -1,6 +1,6 @@
-name: Ruby
+name: Validate gem
 
-on: [push,pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -11,8 +11,11 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.0.0
-    - name: Run the default task
+    - name: Run bundle install
       run: |
-        gem install bundler -v 2.2.15
+        gem install bundler
         bundle install
-        bundle exec rake
+    - name: Run rubocop
+      run: bundle exec rubocop
+    - name: Run rspec
+      run: bundle exec rspec spec/
