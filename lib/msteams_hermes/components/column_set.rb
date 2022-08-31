@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "msteams_hermes/components/base"
 require "msteams_hermes/style"
 
 module MsTeamsHermes

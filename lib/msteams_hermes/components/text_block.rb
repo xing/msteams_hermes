@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "msteams_hermes/components/base"
 require "msteams_hermes/style"
 
 module MsTeamsHermes
@@ -16,15 +17,9 @@ module MsTeamsHermes
       def initialize(args)
         super
 
-        @text = args[:text]
+        init_attributes(args)
         raise "TextBlock `text` cannot be empty" if @text.nil?
         raise "TextBlock `text` must be a String" unless @text.is_a? String
-
-        @wrap = args[:wrap] || false
-        @color = args[:color] || Style::Colors::DEFAULT
-        @size = args[:size] || Style::FontSize::DEFAULT
-        @font_type = args[:font_type] || Style::FontType::DEFAULT
-        @weight = args[:weight] || Style::FontWeight::DEFAULT
       end
 
       def to_hash
@@ -37,6 +32,17 @@ module MsTeamsHermes
           weight: @weight,
           wrap: @wrap
         }
+      end
+
+      private
+
+      def init_attributes(args)
+        @text = args[:text]
+        @wrap = args[:wrap] || false
+        @color = args[:color] || Style::Colors::DEFAULT
+        @size = args[:size] || Style::FontSize::DEFAULT
+        @font_type = args[:font_type] || Style::FontType::DEFAULT
+        @weight = args[:weight] || Style::FontWeight::DEFAULT
       end
     end
   end

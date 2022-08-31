@@ -34,8 +34,6 @@ module MsTeamsHermes
       end
     end
 
-    private
-
     ##
     # Formats the JSON object to be set on the HTTP request
     #

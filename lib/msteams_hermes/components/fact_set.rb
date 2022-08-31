@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "msteams_hermes/components/base"
 require "msteams_hermes/style"
 
 module MsTeamsHermes
@@ -17,7 +18,7 @@ module MsTeamsHermes
 
         @facts = args[:facts]
         raise "FactSet `facts` cannot be empty" if @facts.nil?
-        raise "FactSet `facts` must be an Array of hashes containing only title and value keys" unless valid_facts?
+        raise "FactSet `facts` must be an Array of hashes containing title and value keys" unless valid_facts?
       end
 
       def to_hash
@@ -31,7 +32,7 @@ module MsTeamsHermes
 
       def valid_facts?
         @facts.is_a?(Array) && @facts.all? do |fact|
-          extra_keys = fact.keys - %i[title value]
+          extra_keys = %i[title value] - fact.keys
           fact.is_a?(Hash) && extra_keys.empty?
         end
       end
