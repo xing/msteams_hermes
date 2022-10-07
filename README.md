@@ -47,11 +47,11 @@ MsTeamsHermes::Message.new(webhook_url: <YOUR_WEBHOOK_URL>, content: content).de
 
 Each component, each style, each action is a 1:1 representation from [Microsoft's adaptive cards](https://adaptivecards.io/explorer/).
 
-If you want a more elaborated example on how to create message with complex layouts, check out this [example](https://github.com/[USERNAME]/msteams_hermes/blob/main/complex_example.rb).
+If you want a more elaborated example on how to create message with complex layouts, check out this [example](https://github.com/xing/msteams_hermes/blob/main/complex_example.rb).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/msteams_hermes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/msteams_hermes/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/xing/msteams_hermes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/xing/msteams_hermes/blob/main/CODE_OF_CONDUCT.md).
 
 ### Adding new components, styles and actions
 
@@ -63,4 +63,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the MsteamsHermes project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/msteams_hermes/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the MsTeamsHermes project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/xing/msteams_hermes/blob/main/CODE_OF_CONDUCT.md).
