@@ -9,22 +9,20 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/Action.OpenUrl.html
     ##
     class OpenUrl < Base
-      def initialize(args)
-        super
+      attr_reader :url, :title, :tooltip
 
-        @url = args[:url]
-        raise "OpenUrl `url` cannot be empty" if @url.nil?
-
-        @title = args[:title]
-        @tooltip = args[:tooltip]
+      def initialize(url:, title: nil, tooltip: nil)
+        @url = url
+        @title = title
+        @tooltip = tooltip
       end
 
       def to_hash
         {
           type: "Action.OpenUrl",
-          url: @url,
-          title: @title,
-          tooltip: @tooltip
+          url: url,
+          title: title,
+          tooltip: tooltip
         }
       end
     end

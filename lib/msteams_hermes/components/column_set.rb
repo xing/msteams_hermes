@@ -13,18 +13,17 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/ColumnSet.html
     ##
     class ColumnSet < Base
-      def initialize(args)
-        super
+      attr_reader :columns
 
-        @columns = args[:columns]
-        raise "ColumnSet `columns` cannot be empty" if @columns.nil?
+      def initialize(columns:)
+        @columns = columns
         raise "ColumnSet `columns` must be an Array" unless @columns.is_a? Array
       end
 
       def to_hash
         {
           type: "ColumnSet",
-          columns: @columns.map(&:to_hash)
+          columns: columns.map(&:to_hash)
         }
       end
     end

@@ -13,25 +13,24 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/FactSet.html
     ##
     class FactSet < Base
-      def initialize(args)
-        super
+      attr_reader :facts
 
-        @facts = args[:facts]
-        raise "FactSet `facts` cannot be empty" if @facts.nil?
+      def initialize(facts:)
+        @facts = facts
         raise "FactSet `facts` must be an Array of hashes containing title and value keys" unless valid_facts?
       end
 
       def to_hash
         {
           type: "FactSet",
-          facts: @facts
+          facts: facts
         }
       end
 
       private
 
       def valid_facts?
-        @facts.is_a?(Array) && @facts.all? do |fact|
+        facts.is_a?(Array) && facts.all? do |fact|
           extra_keys = %i[title value] - fact.keys
           fact.is_a?(Hash) && extra_keys.empty?
         end

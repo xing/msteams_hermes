@@ -5,12 +5,6 @@ require "msteams_hermes/style"
 
 RSpec.describe MsTeamsHermes::Components::TextBlock do
   describe "#initialize" do
-    it "throws an error if text is not provided" do
-      expect do
-        MsTeamsHermes::Components::TextBlock.new(foo: "bar")
-      end.to raise_error("TextBlock `text` cannot be empty")
-    end
-
     it "throws an error if text is not a String" do
       expect do
         MsTeamsHermes::Components::TextBlock.new(text: 123)

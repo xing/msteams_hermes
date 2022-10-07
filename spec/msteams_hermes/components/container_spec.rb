@@ -7,12 +7,6 @@ require "msteams_hermes/style"
 
 RSpec.describe MsTeamsHermes::Components::Container do
   describe "#initialize" do
-    it "throws an error if items is not provided" do
-      expect do
-        MsTeamsHermes::Components::Container.new(foo: "bar")
-      end.to raise_error("Container `items` cannot be empty")
-    end
-
     it "throws an error if items is not an Array" do
       expect do
         MsTeamsHermes::Components::Container.new(items: "foo")

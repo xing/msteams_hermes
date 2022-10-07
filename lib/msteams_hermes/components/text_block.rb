@@ -14,35 +14,34 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/TextBlock.html
     ##
     class TextBlock < Base
-      def initialize(args)
-        super
+      attr_reader :text, :wrap, :color, :size, :font_type, :weight
 
-        init_attributes(args)
-        raise "TextBlock `text` cannot be empty" if @text.nil?
+      def initialize(text:,
+                     wrap: false,
+                     color: Style::Colors::DEFAULT,
+                     size: Style::FontSize::DEFAULT,
+                     font_type: Style::FontType::DEFAULT,
+                     weight: Style::FontWeight::DEFAULT)
+        @text = text
         raise "TextBlock `text` must be a String" unless @text.is_a? String
+
+        @wrap = wrap
+        @color = color
+        @size = size
+        @font_type = font_type
+        @weight = weight
       end
 
       def to_hash
         {
           type: "TextBlock",
-          text: @text,
-          color: @color,
-          size: @size,
-          font_type: @font_type,
-          weight: @weight,
-          wrap: @wrap
+          text: text,
+          color: color,
+          size: size,
+          font_type: font_type,
+          weight: weight,
+          wrap: wrap
         }
-      end
-
-      private
-
-      def init_attributes(args)
-        @text = args[:text]
-        @wrap = args[:wrap] || false
-        @color = args[:color] || Style::Colors::DEFAULT
-        @size = args[:size] || Style::FontSize::DEFAULT
-        @font_type = args[:font_type] || Style::FontType::DEFAULT
-        @weight = args[:weight] || Style::FontWeight::DEFAULT
       end
     end
   end

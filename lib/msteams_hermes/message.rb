@@ -9,12 +9,13 @@ module MsTeamsHermes
   # https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL#send-adaptive-cards-using-an-incoming-webhook
   ##
   class Message
-    def initialize(args)
-      @webhook_url = ENV["WEBHOOK_URL"] || args[:webhook_url]
-      @content = args[:content]
+    attr_reader :webhook_url, :content
+
+    def initialize(content:, webhook_url: ENV["WEBHOOK_URL"])
+      @webhook_url = webhook_url
+      @content = content
 
       raise "Message `webhook_url` cannot be empty" if @webhook_url.nil?
-      raise "Message `content` cannot be empty" if @content.nil?
       raise "Message `content` must be an AdaptiveCard" unless @content.is_a? Components::AdaptiveCard
     end
 
@@ -25,7 +26,7 @@ module MsTeamsHermes
     # @return a Net::HTTP response object
     ##
     def deliver
-      uri = URI.parse(@webhook_url)
+      uri = URI.parse(webhook_url)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
         req = Net::HTTP::Post.new(uri)
         req.body = body_json
@@ -46,7 +47,7 @@ module MsTeamsHermes
           {
             contentType: "application/vnd.microsoft.card.adaptive",
             contentUrl: nil,
-            content: @content.to_hash
+            content: content.to_hash
           }
         ]
       }.to_json

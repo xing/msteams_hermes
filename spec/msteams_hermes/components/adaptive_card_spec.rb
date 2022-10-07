@@ -6,12 +6,6 @@ require "msteams_hermes/actions/open_url"
 
 RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
   describe "#initialize" do
-    it "throws an error if body is not provided" do
-      expect do
-        MsTeamsHermes::Components::AdaptiveCard.new(foo: "bar")
-      end.to raise_error("AdaptiveCard `body` cannot be empty")
-    end
-
     it "throws an error if body is not an Array" do
       expect do
         MsTeamsHermes::Components::AdaptiveCard.new(body: "foo")

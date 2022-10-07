@@ -6,12 +6,6 @@ require "msteams_hermes/components/fact_set"
 
 RSpec.describe MsTeamsHermes::Components::ColumnSet do
   describe "#initialize" do
-    it "throws an error if columns is not provided" do
-      expect do
-        MsTeamsHermes::Components::ColumnSet.new(foo: "bar")
-      end.to raise_error("ColumnSet `columns` cannot be empty")
-    end
-
     it "throws an error if columns is not an Array" do
       expect do
         MsTeamsHermes::Components::ColumnSet.new(columns: "foo")

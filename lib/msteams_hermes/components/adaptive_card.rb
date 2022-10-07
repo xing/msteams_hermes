@@ -12,14 +12,13 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/AdaptiveCard.html
     ##
     class AdaptiveCard < Base
-      def initialize(args)
-        super
+      attr_reader :body, :actions
 
-        @body = args[:body]
-        raise "AdaptiveCard `body` cannot be empty" if @body.nil?
+      def initialize(body:, actions: nil)
+        @body = body
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
 
-        @actions = args[:actions]
+        @actions = actions
         raise "AdaptiveCard `actions` must be an Array" unless @actions.nil? || @actions.is_a?(Array)
       end
 
@@ -27,8 +26,8 @@ module MsTeamsHermes
         {
           type: "AdaptiveCard",
           version: "1.5",
-          body: @body.map(&:to_hash),
-          actions: @actions&.map(&:to_hash)
+          body: body.map(&:to_hash),
+          actions: actions&.map(&:to_hash)
         }
       end
     end

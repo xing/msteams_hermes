@@ -13,21 +13,20 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/Column.html
     ##
     class Column < Base
-      def initialize(args)
-        super
+      attr_reader :items, :width
 
-        @items = args[:items]
-        raise "Column `items` cannot be empty" if @items.nil?
+      def initialize(items:, width: "auto")
+        @items = items
         raise "Column `items` must be an Array" unless @items.is_a? Array
 
-        @width = args[:width] || "auto"
+        @width = width
       end
 
       def to_hash
         {
           type: "Column",
-          width: @width,
-          items: @items.map(&:to_hash)
+          width: width,
+          items: items.map(&:to_hash)
         }
       end
     end

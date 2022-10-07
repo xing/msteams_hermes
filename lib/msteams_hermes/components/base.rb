@@ -11,8 +11,6 @@ module MsTeamsHermes
     # Base class of Components representations
     ##
     class Base
-      def initialize(args); end
-
       def to_hash
         raise "Should be implemented on the subclass"
       end

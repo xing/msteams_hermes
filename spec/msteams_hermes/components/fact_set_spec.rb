@@ -4,12 +4,6 @@ require "msteams_hermes/components/fact_set"
 
 RSpec.describe MsTeamsHermes::Components::FactSet do
   describe "#initialize" do
-    it "throws an error if facts is not provided" do
-      expect do
-        MsTeamsHermes::Components::FactSet.new(foo: "bar")
-      end.to raise_error("FactSet `facts` cannot be empty")
-    end
-
     it "throws an error if facts is not an Array" do
       expect do
         MsTeamsHermes::Components::FactSet.new(facts: { title: "foo", value: "bar" })

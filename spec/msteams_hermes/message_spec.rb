@@ -8,14 +8,8 @@ RSpec.describe MsTeamsHermes::Message do
   describe "#initialize" do
     it "throws an error if webhook_url is not provided" do
       expect do
-        MsTeamsHermes::Message.new(foo: "bar")
+        MsTeamsHermes::Message.new(content: MsTeamsHermes::Components::AdaptiveCard.new(body: ["any"]))
       end.to raise_error("Message `webhook_url` cannot be empty")
-    end
-
-    it "throws an error if content is not provided" do
-      expect do
-        MsTeamsHermes::Message.new(webhook_url: "any")
-      end.to raise_error("Message `content` cannot be empty")
     end
 
     it "throws an error if content is not an AdaptiveCard" do

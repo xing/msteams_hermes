@@ -14,23 +14,22 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/Container.html
     ##
     class Container < Base
-      def initialize(args)
-        super
+      attr_reader :items, :style, :select_action
 
-        @items = args[:items]
-        raise "Container `items` cannot be empty" if @items.nil?
+      def initialize(items:, style: Style::ContainerStyle::DEFAULT, select_action: nil)
+        @items = items
         raise "Container `items` must be an Array" unless @items.is_a? Array
 
-        @style = args[:style] || Style::ContainerStyle::DEFAULT
-        @select_action = args[:select_action]
+        @style = style
+        @select_action = select_action
       end
 
       def to_hash
         {
           type: "Container",
-          style: @style,
-          selectAction: @select_action&.to_hash,
-          items: @items.map(&:to_hash)
+          style: style,
+          selectAction: select_action&.to_hash,
+          items: items.map(&:to_hash)
         }
       end
     end
