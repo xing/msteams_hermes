@@ -14,14 +14,15 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/TextBlock.html
     ##
     class TextBlock < Base
-      attr_reader :text, :wrap, :color, :size, :font_type, :weight
+      attr_reader :text, :wrap, :color, :size, :font_type, :weight, :is_subtle
 
       def initialize(text:,
                      wrap: false,
                      color: Style::Colors::DEFAULT,
                      size: Style::FontSize::DEFAULT,
                      font_type: Style::FontType::DEFAULT,
-                     weight: Style::FontWeight::DEFAULT)
+                     weight: Style::FontWeight::DEFAULT,
+                     is_subtle: false)
         @text = text
         raise "TextBlock `text` must be a String" unless @text.is_a? String
 
@@ -30,6 +31,7 @@ module MsTeamsHermes
         @size = size
         @font_type = font_type
         @weight = weight
+        @is_subtle = is_subtle
       end
 
       def to_hash
@@ -40,7 +42,8 @@ module MsTeamsHermes
           size: size,
           font_type: font_type,
           weight: weight,
-          wrap: wrap
+          wrap: wrap,
+          is_subtle: is_subtle
         }
       end
     end
