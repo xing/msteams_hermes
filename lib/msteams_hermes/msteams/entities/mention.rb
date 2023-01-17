@@ -12,8 +12,14 @@ module MsTeamsHermes
       class Mention < Base
 
         def initialize(text:, name:, id:)
+          raise "`text` must be a string" unless text.is_a? String
+          raise "`text` must contain <at>...</at>" unless text.include? "<at>" and text.include? "</at>"
+
           @mention_reference = text # String surrounded by <at>string</at> that marks the mention section in a text
+
           @mention_string = name # allows for overriding the mention_reference
+
+          raise "`id` must be a string" unless text.is_a? String
           @user_id = id
         end
 
