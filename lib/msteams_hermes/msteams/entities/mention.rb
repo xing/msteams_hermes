@@ -10,24 +10,11 @@ module MsTeamsHermes
       # https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-format?tabs=adaptive-md%2Cdesktop%2Cconnector-html#user-mention-in-incoming-webhook-with-adaptive-cards
       ##
       class Mention < Base
-        attr_reader :text, :id, :name
 
         def initialize(text:, name:, id:)
           @mention_reference = text # String surrounded by <at>string</at> that marks the mention section in a text
           @mention_string = name # allows for overriding the mention_reference
           @user_id = id
-        end
-
-        def name
-          @mention_string
-        end
-
-        def text
-          @mention_string
-        end
-
-        def id
-          @user_id
         end
 
         def to_hash
