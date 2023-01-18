@@ -12,7 +12,7 @@ module MsTeamsHermes
       class Mention < Base
         attr_reader :mention_reference, :mention_string, :user_id
 
-        def initialize(text: "", name: "", id: "")
+        def initialize(text:, name:, id:)
           raise "`text` must be a string" unless text.is_a? String
           raise "`text` must contain <at>...</at>" unless text.include?("<at>") && text.include?("</at>")
           raise "`id` must be a string" unless text.is_a? String
