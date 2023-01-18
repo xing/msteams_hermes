@@ -25,10 +25,10 @@ module MsTeamsHermes
         def to_hash
           {
             type: "mention",
-            text: @mention_reference,
+            text: mention_reference,
             mentioned: {
-              id: @user_id,
-              name: @mention_string
+              id: user_id,
+              name: mention_string
             }
           }
         end
