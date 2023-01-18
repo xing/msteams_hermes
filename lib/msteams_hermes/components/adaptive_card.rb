@@ -14,7 +14,7 @@ module MsTeamsHermes
     class AdaptiveCard < Base
       attr_reader :body, :actions, :entities
 
-      def initialize(body:, actions: nil, entities: nil)
+      def initialize(body:, actions: nil, entities: [])
         @body = body
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
 
