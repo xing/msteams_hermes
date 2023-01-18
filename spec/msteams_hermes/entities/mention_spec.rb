@@ -12,9 +12,11 @@ RSpec.describe MsTeamsHermes::MsTeams::Entities::Mention do
   end
 
   describe "#to_hash" do
-    subject(:mention) { MsTeamsHermes::MsTeams::Entities::Mention.new(text: mention_segment_in_text,
-                                                                      name: mention_string,
-                                                                      id: user_id) }
+    subject(:mention) do
+      MsTeamsHermes::MsTeams::Entities::Mention.new(text: mention_segment_in_text,
+                                                    name: mention_string,
+                                                    id: user_id)
+    end
 
     let(:mention_segment_in_text) { "<at>original text reference</at>" }
     let(:user_id) { "aneamailaddress@yourcompany.com" }
