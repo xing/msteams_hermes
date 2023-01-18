@@ -45,7 +45,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
             tooltip: nil
           }
         ],
-        msteams: { entities: nil }
+        msteams: { entities: [] }
       }
 
       expect(component.to_hash).to eq hash
