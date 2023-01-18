@@ -31,7 +31,7 @@ module MsTeamsHermes
           version: "1.5",
           body: body.map(&:to_hash),
           actions: actions&.map(&:to_hash),
-          msteams: {entities: entities&.map(&:to_hash)}
+          msteams: { entities: entities&.map(&:to_hash) }
         }
       end
     end
