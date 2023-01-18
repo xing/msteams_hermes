@@ -50,7 +50,10 @@ RSpec.describe MsTeamsHermes::Message do
                   facts: [fact]
                 }
               ],
-              actions: nil
+              actions: nil,
+              msteams: {
+                entities: nil
+              }
             }
           }
         ]
