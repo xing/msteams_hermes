@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "msteams_hermes/components/base"
-
 module MsTeamsHermes
   ##
   # Module containing Microsoft's components representations
