@@ -24,11 +24,7 @@ module MsTeamsHermes
         @entities = entities
         raise "AdaptiveCard `entities` must be an Array" unless @entities.nil? || @entities.is_a?(Array)
 
-        @width = if (full_width)
-          "stretch"
-        else
-          "auto"
-        end
+        set_width(full_width: full_width)
       end
 
       def to_hash
@@ -37,11 +33,21 @@ module MsTeamsHermes
           version: "1.5",
           body: body.map(&:to_hash),
           actions: actions&.map(&:to_hash),
-          msteams: { 
+          msteams: {
             entities: entities.map(&:to_hash),
             width: width
           }
         }
+      end
+
+      private
+
+      def set_width(full_width:)
+        @width = if full_width
+                   "stretch"
+                 else
+                   "auto"
+                 end
       end
     end
   end

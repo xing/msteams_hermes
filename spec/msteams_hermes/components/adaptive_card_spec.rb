@@ -26,7 +26,9 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
     let(:action_url) { "any_url" }
 
     context "with full width" do
-      subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: true) }
+      subject(:component) do
+        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: true)
+      end
 
       it "renders the hash object with stretch width" do
         hash = {
@@ -46,18 +48,20 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
               tooltip: nil
             }
           ],
-          msteams: { 
+          msteams: {
             entities: [],
             width: "stretch"
           }
         }
-  
+
         expect(component.to_hash).to eq hash
       end
     end
 
     context "with not full width" do
-      subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: false) }
+      subject(:component) do
+        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: false)
+      end
 
       it "renders the hash object with auto width" do
         hash = {
@@ -77,12 +81,12 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
               tooltip: nil
             }
           ],
-          msteams: { 
+          msteams: {
             entities: [],
             width: "auto"
           }
         }
-  
+
         expect(component.to_hash).to eq hash
       end
     end
