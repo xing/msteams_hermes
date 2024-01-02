@@ -44,9 +44,9 @@ module MsTeamsHermes
 
       def set_width(full_width:)
         @width = if full_width
-                   "stretch"
+                   "full"
                  else
-                   "auto"
+                   "default"
                  end
       end
     end

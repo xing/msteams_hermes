@@ -30,7 +30,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
         MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: true)
       end
 
-      it "renders the hash object with stretch width" do
+      it "renders the hash object with full width" do
         hash = {
           type: "AdaptiveCard",
           version: "1.5",
@@ -50,7 +50,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
           ],
           msteams: {
             entities: [],
-            width: "stretch"
+            width: "full"
           }
         }
 
@@ -63,7 +63,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
         MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: false)
       end
 
-      it "renders the hash object with auto width" do
+      it "renders the hash object with default width" do
         hash = {
           type: "AdaptiveCard",
           version: "1.5",
@@ -83,7 +83,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
           ],
           msteams: {
             entities: [],
-            width: "auto"
+            width: "default"
           }
         }
 
