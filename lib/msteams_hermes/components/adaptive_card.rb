@@ -12,9 +12,9 @@ module MsTeamsHermes
     # https://adaptivecards.io/explorer/AdaptiveCard.html
     ##
     class AdaptiveCard < Base
-      attr_reader :body, :actions, :entities
+      attr_reader :body, :actions, :entities, :width
 
-      def initialize(body:, actions: nil, entities: [])
+      def initialize(body:, actions: nil, entities: [], full_width: false)
         @body = body
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
 
@@ -23,6 +23,12 @@ module MsTeamsHermes
 
         @entities = entities
         raise "AdaptiveCard `entities` must be an Array" unless @entities.nil? || @entities.is_a?(Array)
+
+        @width = if (full_width)
+          "stretch"
+        else
+          "auto"
+        end
       end
 
       def to_hash
@@ -31,7 +37,10 @@ module MsTeamsHermes
           version: "1.5",
           body: body.map(&:to_hash),
           actions: actions&.map(&:to_hash),
-          msteams: { entities: entities.map(&:to_hash) }
+          msteams: { 
+            entities: entities.map(&:to_hash),
+            width: width
+          }
         }
       end
     end

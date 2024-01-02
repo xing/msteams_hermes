@@ -20,35 +20,71 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
   end
 
   describe "#to_hash" do
-    subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action]) }
-
     let(:fact_set) { MsTeamsHermes::Components::FactSet.new(facts: [fact]) }
     let(:action) { MsTeamsHermes::Actions::OpenUrl.new(url: action_url) }
     let(:fact) { { title: "foo", value: "bar" } }
     let(:action_url) { "any_url" }
 
-    it "renders the hash object" do
-      hash = {
-        type: "AdaptiveCard",
-        version: "1.5",
-        body: [
-          {
-            type: "FactSet",
-            facts: [fact]
-          }
-        ],
-        actions: [
-          {
-            type: "Action.OpenUrl",
-            url: action_url,
-            title: nil,
-            tooltip: nil
-          }
-        ],
-        msteams: { entities: [] }
-      }
+    context "with full width" do
+      subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: true) }
 
-      expect(component.to_hash).to eq hash
+      it "renders the hash object with stretch width" do
+        hash = {
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "FactSet",
+              facts: [fact]
+            }
+          ],
+          actions: [
+            {
+              type: "Action.OpenUrl",
+              url: action_url,
+              title: nil,
+              tooltip: nil
+            }
+          ],
+          msteams: { 
+            entities: [],
+            width: "stretch"
+          }
+        }
+  
+        expect(component.to_hash).to eq hash
+      end
+    end
+
+    context "with not full width" do
+      subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: false) }
+
+      it "renders the hash object with auto width" do
+        hash = {
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "FactSet",
+              facts: [fact]
+            }
+          ],
+          actions: [
+            {
+              type: "Action.OpenUrl",
+              url: action_url,
+              title: nil,
+              tooltip: nil
+            }
+          ],
+          msteams: { 
+            entities: [],
+            width: "auto"
+          }
+        }
+  
+        expect(component.to_hash).to eq hash
+      end
     end
   end
 end

@@ -52,7 +52,8 @@ RSpec.describe MsTeamsHermes::Message do
               ],
               actions: nil,
               msteams: {
-                entities: []
+                entities: [],
+                width: "auto"
               }
             }
           }
