@@ -27,7 +27,8 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
 
     context "with full width" do
       subject(:component) do
-        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: true)
+        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action],
+                                                    width: MsTeamsHermes::Components::AdaptiveCard::WIDTH[:full])
       end
 
       it "renders the hash object with full width" do
@@ -60,7 +61,8 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
 
     context "with not full width" do
       subject(:component) do
-        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], full_width: false)
+        MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action],
+                                                    width: MsTeamsHermes::Components::AdaptiveCard::WIDTH[:default])
       end
 
       it "renders the hash object with default width" do
