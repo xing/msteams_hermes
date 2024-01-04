@@ -14,12 +14,19 @@ module MsTeamsHermes
     class AdaptiveCard < Base
       attr_reader :body, :actions, :entities, :width
 
-      WIDTH = {
-        default: "default",
-        full: "full"
-      }.freeze
+      ##
+      # Module containing available width options for the AdaptiveCard component
+      ##
+      module Width
+        DEFAULT = "default"
+        FULL = "full"
 
-      def initialize(body:, actions: nil, entities: [], width: WIDTH[:default])
+        def self.all
+          [DEFAULT, FULL]
+        end
+      end
+
+      def initialize(body:, actions: nil, entities: [], width: Width::DEFAULT)
         @body = body
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
 
@@ -30,6 +37,7 @@ module MsTeamsHermes
         raise "AdaptiveCard `entities` must be an Array" unless @entities.nil? || @entities.is_a?(Array)
 
         @width = width
+        raise "AdaptiveCard `width` must be one of the available Width options" unless Width.all.include?(width)
       end
 
       def to_hash

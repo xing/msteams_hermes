@@ -25,13 +25,13 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
     let(:fact) { { title: "foo", value: "bar" } }
     let(:action_url) { "any_url" }
 
-    context "with full width" do
+    context "initialized with full width" do
       subject(:component) do
         MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action],
-                                                    width: MsTeamsHermes::Components::AdaptiveCard::WIDTH[:full])
+                                                    width: MsTeamsHermes::Components::AdaptiveCard::Width::FULL)
       end
 
-      it "renders the hash object with full width" do
+      it "renders the hash object with full width parameter" do
         hash = {
           type: "AdaptiveCard",
           version: "1.5",
@@ -59,13 +59,13 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
       end
     end
 
-    context "with not full width" do
+    context "initialized with the default width" do
       subject(:component) do
         MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action],
-                                                    width: MsTeamsHermes::Components::AdaptiveCard::WIDTH[:default])
+                                                    width: MsTeamsHermes::Components::AdaptiveCard::Width::DEFAULT)
       end
 
-      it "renders the hash object with default width" do
+      it "renders the hash object with default width parameter" do
         hash = {
           type: "AdaptiveCard",
           version: "1.5",
