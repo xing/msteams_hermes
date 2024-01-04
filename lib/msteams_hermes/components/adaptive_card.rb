@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require "msteams_hermes/components/base"
+require "msteams_hermes/style"
 
 module MsTeamsHermes
   ##
   # Module containing Microsoft's components representations
   ##
   module Components
+    include MsTeamsHermes::Style
     ##
     # A class representing Microsoft's AdaptiveCard object
     # https://adaptivecards.io/explorer/AdaptiveCard.html
@@ -14,19 +16,7 @@ module MsTeamsHermes
     class AdaptiveCard < Base
       attr_reader :body, :actions, :entities, :width
 
-      ##
-      # Module containing available width options for the AdaptiveCard component
-      ##
-      module Width
-        DEFAULT = "default"
-        FULL = "full"
-
-        def self.all
-          [DEFAULT, FULL]
-        end
-      end
-
-      def initialize(body:, actions: nil, entities: [], width: Width::DEFAULT)
+      def initialize(body:, actions: nil, entities: [], width: Style::Width::DEFAULT)
         @body = body
         raise "AdaptiveCard `body` must be an Array" unless @body.is_a? Array
 
@@ -37,7 +27,7 @@ module MsTeamsHermes
         raise "AdaptiveCard `entities` must be an Array" unless @entities.nil? || @entities.is_a?(Array)
 
         @width = width
-        raise "AdaptiveCard `width` must be one of the available Width options" unless Width.all.include?(width)
+        raise "AdaptiveCard `width` must be one of the available Width options" unless Style::Width.all.include?(width)
       end
 
       def to_hash
