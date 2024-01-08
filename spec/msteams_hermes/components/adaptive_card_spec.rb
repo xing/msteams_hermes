@@ -3,6 +3,7 @@
 require "msteams_hermes/components/adaptive_card"
 require "msteams_hermes/components/fact_set"
 require "msteams_hermes/actions/open_url"
+require "msteams_hermes/style"
 
 RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
   describe "#initialize" do
@@ -20,35 +21,75 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
   end
 
   describe "#to_hash" do
-    subject(:component) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action]) }
+    subject(:component) do
+      MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], width: width)
+    end
 
     let(:fact_set) { MsTeamsHermes::Components::FactSet.new(facts: [fact]) }
     let(:action) { MsTeamsHermes::Actions::OpenUrl.new(url: action_url) }
     let(:fact) { { title: "foo", value: "bar" } }
     let(:action_url) { "any_url" }
 
-    it "renders the hash object" do
-      hash = {
-        type: "AdaptiveCard",
-        version: "1.5",
-        body: [
-          {
-            type: "FactSet",
-            facts: [fact]
-          }
-        ],
-        actions: [
-          {
-            type: "Action.OpenUrl",
-            url: action_url,
-            title: nil,
-            tooltip: nil
-          }
-        ],
-        msteams: { entities: [] }
-      }
+    context "initialized with full width" do
+      let(:width) { MsTeamsHermes::Style::Width::FULL }
 
-      expect(component.to_hash).to eq hash
+      it "renders the hash object with full width parameter" do
+        hash = {
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "FactSet",
+              facts: [fact]
+            }
+          ],
+          actions: [
+            {
+              type: "Action.OpenUrl",
+              url: action_url,
+              title: nil,
+              tooltip: nil
+            }
+          ],
+          msteams: {
+            entities: [],
+            width: "full"
+          }
+        }
+
+        expect(component.to_hash).to eq hash
+      end
+    end
+
+    context "initialized with the default width" do
+      let(:width) { MsTeamsHermes::Style::Width::DEFAULT }
+
+      it "renders the hash object with default width parameter" do
+        hash = {
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "FactSet",
+              facts: [fact]
+            }
+          ],
+          actions: [
+            {
+              type: "Action.OpenUrl",
+              url: action_url,
+              title: nil,
+              tooltip: nil
+            }
+          ],
+          msteams: {
+            entities: [],
+            width: "default"
+          }
+        }
+
+        expect(component.to_hash).to eq hash
+      end
     end
   end
 end

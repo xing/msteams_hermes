@@ -3,6 +3,7 @@
 require "msteams_hermes/message"
 require "msteams_hermes/components/adaptive_card"
 require "msteams_hermes/components/fact_set"
+require "msteams_hermes/style"
 
 RSpec.describe MsTeamsHermes::Message do
   describe "#initialize" do
@@ -52,7 +53,8 @@ RSpec.describe MsTeamsHermes::Message do
               ],
               actions: nil,
               msteams: {
-                entities: []
+                entities: [],
+                width: "default"
               }
             }
           }
