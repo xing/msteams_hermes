@@ -9,6 +9,15 @@ module MsTeamsHermes
   # https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL#send-adaptive-cards-using-an-incoming-webhook
   ##
   class Message
+    class MessageBodyLikelyTooLargeError < StandardError
+      def initialize(current_size)
+        super("Given our latest information microsoft teams has a size limitation of about #{MSTEAMS_MESSAGE_SIZE_LIMIT} bytes." \
+              "\nYour message results in a size of about #{current_size} bytes which would result in an error")
+      end
+    end
+
+    MSTEAMS_MESSAGE_SIZE_LIMIT = 21_000
+
     attr_reader :webhook_url, :content
 
     def initialize(content:, webhook_url: ENV["WEBHOOK_URL"])
@@ -30,6 +39,9 @@ module MsTeamsHermes
       Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
         req = Net::HTTP::Post.new(uri)
         req.body = body_json
+        if body_json.bytesize > MSTEAMS_MESSAGE_SIZE_LIMIT
+          raise MessageBodyLikelyTooLargeError.new(body_json.bytesize)
+        end
         req["Content-Type"] = "application/json"
         http.request(req)
       end
