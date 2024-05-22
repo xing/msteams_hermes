@@ -45,7 +45,6 @@ RSpec.describe MsTeamsHermes::Message do
       end
     end
 
-
     context "when network call is successful" do
       before do
         stub_request(:post, webhook_url).to_return(status: 200, body: "", headers: {})

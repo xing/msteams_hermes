@@ -25,7 +25,7 @@ module MsTeamsHermes
       def to_hash
         {
           type: "Column",
-          width: width,
+          width:,
           items: items.map(&:to_hash)
         }
       end

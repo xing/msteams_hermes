@@ -38,7 +38,7 @@ module MsTeamsHermes
           actions: actions&.map(&:to_hash),
           msteams: {
             entities: entities.map(&:to_hash),
-            width: width
+            width:
           }
         }
       end

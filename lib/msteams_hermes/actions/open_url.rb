@@ -20,9 +20,9 @@ module MsTeamsHermes
       def to_hash
         {
           type: "Action.OpenUrl",
-          url: url,
-          title: title,
-          tooltip: tooltip
+          url:,
+          title:,
+          tooltip:
         }
       end
     end

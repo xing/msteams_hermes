@@ -17,7 +17,7 @@ RSpec.describe MsTeamsHermes::Components::Container do
   describe "#to_hash" do
     subject(:component) do
       MsTeamsHermes::Components::Container.new(items: [fact_set],
-                                               style: style,
+                                               style:,
                                                select_action: action)
     end
 
@@ -36,7 +36,7 @@ RSpec.describe MsTeamsHermes::Components::Container do
             facts: [fact]
           }
         ],
-        style: style,
+        style:,
         selectAction: {
           type: "Action.OpenUrl",
           url: action_url,
