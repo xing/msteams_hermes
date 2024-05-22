@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+# debugger
+require "pry-byebug"
+
+# network stub
+require "webmock/rspec"
+
+# gem under test
 require "msteams_hermes"
 
 RSpec.configure do |config|
