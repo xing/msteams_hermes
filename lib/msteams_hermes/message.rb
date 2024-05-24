@@ -10,16 +10,27 @@ module MsTeamsHermes
   ##
   class Message
     ##
-    # Raise when the message is larger than the latest known maximum size of microsoft teams messages
-    class MessageBodyLikelyTooLargeError < StandardError
+    # Raises when the message is larger than the latest known maximum size of microsoft teams messages
+    ##
+    class MessageBodyTooLargeError < StandardError
       def initialize(current_size)
-        super("Given our latest information" \
-              " microsoft teams has a size limitation of about #{MSTEAMS_MESSAGE_SIZE_LIMIT} bytes." \
-              "\nYour message results in a size of about #{current_size} bytes which would result in an error")
+        super "Microsoft Teams Webhook answered with a 413 due to content size limitations" \
+              " (last check it was about #{MSTEAMS_MESSAGE_SIZE_LIMIT} bytes)." \
+              "\nYour message results in a size of about #{current_size} bytes which is too much."
+      end
+    end
+
+    ##
+    # Raises when the response message changes from the successful response
+    ##
+    class UnknownError < StandardError
+      def initialize(error)
+        super "Microsoft Teams Webhook had an unexpected response body:\n#{error}"
       end
     end
 
     MSTEAMS_MESSAGE_SIZE_LIMIT = 21_000
+    MSTEAMS_MESSAGE_413_ERROR_TOKEN = 'returned HTTP error 413'
 
     attr_reader :webhook_url, :content
 
@@ -42,10 +53,16 @@ module MsTeamsHermes
       Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
         req = Net::HTTP::Post.new(uri)
         req.body = body_json
-        raise MessageBodyLikelyTooLargeError, body_json.bytesize if body_json.bytesize > MSTEAMS_MESSAGE_SIZE_LIMIT
-
         req["Content-Type"] = "application/json"
-        http.request(req)
+
+        response = http.request(req)
+
+        if response.body != '1'
+          raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+          raise UnknownError, response.body
+        end
+
+        response
       end
     end
 

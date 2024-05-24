@@ -37,18 +37,28 @@ RSpec.describe MsTeamsHermes::Message do
   describe "#deliver" do
     subject { MsTeamsHermes::Message.new(webhook_url:, content: card).deliver }
 
-    context "when the content is bigger than #{MsTeamsHermes::Message::MSTEAMS_MESSAGE_SIZE_LIMIT} bytes" do
-      let(:fact) { { title: "foo", value: "a" * MsTeamsHermes::Message::MSTEAMS_MESSAGE_SIZE_LIMIT } }
+    before do
+      stub_request(:post, webhook_url).to_return(status: 200, body: webhook_response_body, headers: {})
+    end
+
+    context "when microsoft teams answer includes 413 error message" do
+      let(:webhook_response_body) { "some prefix #{MsTeamsHermes::Message::MSTEAMS_MESSAGE_413_ERROR_TOKEN} some suffix" }
 
       it "raises an error if the body size is too big" do
-        expect { subject }.to raise_error(MsTeamsHermes::Message::MessageBodyLikelyTooLargeError)
+        expect { subject }.to raise_error(MsTeamsHermes::Message::MessageBodyTooLargeError)
+      end
+    end
+
+    context "when microsoft teams answer with an unexpected response body" do
+      let(:webhook_response_body) { 'something unexpected' }
+
+      it "raises an error if the body size is too big" do
+        expect { subject }.to raise_error(MsTeamsHermes::Message::UnknownError)
       end
     end
 
     context "when network call is successful" do
-      before do
-        stub_request(:post, webhook_url).to_return(status: 200, body: "", headers: {})
-      end
+      let(:webhook_response_body) { '1' }
 
       it "returns the network call response instance" do
         expect(subject).to be_a Net::HTTPOK
