@@ -42,6 +42,8 @@ module MsTeamsHermes
       raise "Message `content` must be an AdaptiveCard" unless @content.is_a? Components::AdaptiveCard
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     ##
     # Sends a HTTP request to the webhook URL specified via
     # either environment variable or when initializing the class
@@ -66,6 +68,8 @@ module MsTeamsHermes
         response
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
 
     ##
     # Formats the JSON object to be set on the HTTP request
