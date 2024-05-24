@@ -42,7 +42,9 @@ RSpec.describe MsTeamsHermes::Message do
     end
 
     context "when microsoft teams answer includes 413 error message" do
-      let(:webhook_response_body) { "some prefix #{MsTeamsHermes::Message::MSTEAMS_MESSAGE_413_ERROR_TOKEN} some suffix" }
+      let(:webhook_response_body) do
+        "some prefix #{MsTeamsHermes::Message::MSTEAMS_MESSAGE_413_ERROR_TOKEN} some suffix"
+      end
 
       it "raises an error if the body size is too big" do
         expect { subject }.to raise_error(MsTeamsHermes::Message::MessageBodyTooLargeError)
@@ -50,7 +52,7 @@ RSpec.describe MsTeamsHermes::Message do
     end
 
     context "when microsoft teams answer with an unexpected response body" do
-      let(:webhook_response_body) { 'something unexpected' }
+      let(:webhook_response_body) { "something unexpected" }
 
       it "raises an error if the body size is too big" do
         expect { subject }.to raise_error(MsTeamsHermes::Message::UnknownError)
@@ -58,7 +60,7 @@ RSpec.describe MsTeamsHermes::Message do
     end
 
     context "when network call is successful" do
-      let(:webhook_response_body) { '1' }
+      let(:webhook_response_body) { "1" }
 
       it "returns the network call response instance" do
         expect(subject).to be_a Net::HTTPOK

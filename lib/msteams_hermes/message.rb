@@ -30,7 +30,7 @@ module MsTeamsHermes
     end
 
     MSTEAMS_MESSAGE_SIZE_LIMIT = 21_000
-    MSTEAMS_MESSAGE_413_ERROR_TOKEN = 'returned HTTP error 413'
+    MSTEAMS_MESSAGE_413_ERROR_TOKEN = "returned HTTP error 413"
 
     attr_reader :webhook_url, :content
 
@@ -57,8 +57,9 @@ module MsTeamsHermes
 
         response = http.request(req)
 
-        if response.body != '1'
+        if response.body != "1"
           raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+
           raise UnknownError, response.body
         end
 
