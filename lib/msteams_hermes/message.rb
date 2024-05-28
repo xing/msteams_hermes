@@ -29,6 +29,9 @@ module MsTeamsHermes
       end
     end
 
+    # Docu says: 'The message size limit is 28 KB',
+    # but testing aligned with 21KB.
+    # See: https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook
     MSTEAMS_MESSAGE_SIZE_LIMIT = 21_000
     MSTEAMS_MESSAGE_413_ERROR_TOKEN = "returned HTTP error 413"
 
