@@ -10,7 +10,7 @@ RSpec.describe MsTeamsHermes::Message do
   let(:fact_set) { MsTeamsHermes::Components::FactSet.new(facts: [fact]) }
   let(:card) { MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set]) }
 
-  let(:webhook_url) { "https://xingag.webhook.office.com/webhookb2/some-more-path-tokens" }
+  let(:webhook_url) { "https://some-company.webhook.office.com/webhookb2/some-more-path-tokens" }
 
   describe "#initialize" do
     it "throws an error if webhook_url is not provided" do
