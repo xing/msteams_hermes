@@ -10,7 +10,7 @@ module MsTeamsHermes
   ##
   class Message
     ##
-    # Raises when the message is larger than the latest known maximum size of microsoft teams messages
+    # Raises when the message is larger than the latest known maximum size of a microsoft teams message
     ##
     class MessageBodyTooLargeError < StandardError
       def initialize(current_size)
