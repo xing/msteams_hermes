@@ -62,6 +62,8 @@ module MsTeamsHermes
 
         response = http.request(req)
 
+        # For details see:
+        # https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL%2Ctext1#send-messages-using-curl-and-powershell
         if response.body != "1"
           raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
 
