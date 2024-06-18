@@ -13,7 +13,7 @@ RSpec.describe MsTeamsHermes::Components::Column do
   end
 
   describe "#to_hash" do
-    subject(:component) { MsTeamsHermes::Components::Column.new(items: [fact_set], width: width) }
+    subject(:component) { MsTeamsHermes::Components::Column.new(items: [fact_set], width:) }
 
     let(:fact_set) { MsTeamsHermes::Components::FactSet.new(facts: [fact]) }
     let(:fact) { { title: "foo", value: "bar" } }
@@ -28,7 +28,7 @@ RSpec.describe MsTeamsHermes::Components::Column do
             facts: [fact]
           }
         ],
-        width: width
+        width:
       }
 
       expect(component.to_hash).to eq hash

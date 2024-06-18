@@ -1,9 +1,10 @@
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
+    - msteams_hermes.gemspec
+    - spec/**/*
 
 Style/StringLiterals:
   Enabled: true

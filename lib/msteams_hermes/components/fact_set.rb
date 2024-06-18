@@ -23,7 +23,7 @@ module MsTeamsHermes
       def to_hash
         {
           type: "FactSet",
-          facts: facts
+          facts:
         }
       end
 

@@ -37,13 +37,13 @@ module MsTeamsHermes
       def to_hash
         {
           type: "TextBlock",
-          text: text,
-          color: color,
-          size: size,
-          font_type: font_type,
-          weight: weight,
-          wrap: wrap,
-          is_subtle: is_subtle
+          text:,
+          color:,
+          size:,
+          font_type:,
+          weight:,
+          wrap:,
+          is_subtle:
         }
       end
     end

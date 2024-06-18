@@ -27,7 +27,7 @@ module MsTeamsHermes
       def to_hash
         {
           type: "Container",
-          style: style,
+          style:,
           selectAction: select_action&.to_hash,
           items: items.map(&:to_hash)
         }

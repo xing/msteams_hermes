@@ -22,7 +22,7 @@ RSpec.describe MsTeamsHermes::Components::AdaptiveCard do
 
   describe "#to_hash" do
     subject(:component) do
-      MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], width: width)
+      MsTeamsHermes::Components::AdaptiveCard.new(body: [fact_set], actions: [action], width:)
     end
 
     let(:fact_set) { MsTeamsHermes::Components::FactSet.new(facts: [fact]) }

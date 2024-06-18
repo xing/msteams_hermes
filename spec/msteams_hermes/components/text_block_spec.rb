@@ -14,13 +14,13 @@ RSpec.describe MsTeamsHermes::Components::TextBlock do
 
   describe "#to_hash" do
     subject(:component) do
-      MsTeamsHermes::Components::TextBlock.new(text: text,
-                                               color: color,
-                                               size: size,
-                                               font_type: font_type,
-                                               weight: weight,
-                                               wrap: wrap,
-                                               is_subtle: is_subtle)
+      MsTeamsHermes::Components::TextBlock.new(text:,
+                                               color:,
+                                               size:,
+                                               font_type:,
+                                               weight:,
+                                               wrap:,
+                                               is_subtle:)
     end
 
     let(:text) { "any text" }
@@ -34,13 +34,13 @@ RSpec.describe MsTeamsHermes::Components::TextBlock do
     it "renders the hash object" do
       hash = {
         type: "TextBlock",
-        text: text,
-        color: color,
-        size: size,
-        font_type: font_type,
-        weight: weight,
-        wrap: wrap,
-        is_subtle: is_subtle
+        text:,
+        color:,
+        size:,
+        font_type:,
+        weight:,
+        wrap:,
+        is_subtle:
       }
 
       expect(component.to_hash).to eq hash

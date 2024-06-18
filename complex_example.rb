@@ -72,4 +72,4 @@ content = MsTeamsHermes::Components::AdaptiveCard.new(
   ]
 )
 
-MsTeamsHermes::Message.new(webhook_url: YOUR_WEBHOOK_URL, content: content).deliver
+MsTeamsHermes::Message.new(webhook_url: YOUR_WEBHOOK_URL, content:).deliver
