@@ -64,7 +64,7 @@ module MsTeamsHermes
 
         # For details see:
         # https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL%2Ctext1#send-messages-using-curl-and-powershell
-        if response.body != "1"
+        if not response.body.empty? and response.body != "1"
           raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
 
           raise UnknownError, response.body
