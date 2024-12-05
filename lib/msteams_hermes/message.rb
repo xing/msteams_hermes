@@ -3,6 +3,12 @@
 require "net/http"
 require "json"
 
+##
+# Module to encapsulate the logic that decides whether a given response
+# is of type workflow or connector type webhook.
+# Both types must be considered differently to support both types of
+# MSTeams webhooks.
+##
 module MsTeamsWebhookType
   def self.mst_workflow_webhook_response?(response)
     response.code == "202" and response.body.empty?
@@ -74,10 +80,11 @@ module MsTeamsHermes
 
         response = http.request(req)
 
-        return response if MsTeamsWebhookType::mst_workflow_webhook_response?(response)
-        return response if MsTeamsWebhookType::mst_connector_webhook_response?(response)
+        return response if MsTeamsWebhookType.mst_workflow_webhook_response?(response)
+        return response if MsTeamsWebhookType.mst_connector_webhook_response?(response)
 
         raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+
         raise UnknownError, response.body
       end
     end
