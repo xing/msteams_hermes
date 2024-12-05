@@ -19,7 +19,7 @@ header = MsTeamsHermes::Components::Container.new(
       weight: MsTeamsHermes::Style::FontWeight::BOLDER
     ),
     MsTeamsHermes::Components::TextBlock.new(
-      text: "#{Time.now.strftime("%A, %d %B %Y %H:%M:%S")}"
+      text: Time.now.strftime("%A, %d %B %Y %H:%M:%S").to_s
     )
   ]
 )
