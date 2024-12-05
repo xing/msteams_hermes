@@ -3,6 +3,18 @@
 require "net/http"
 require "json"
 
+module MsTeamsWebhookType
+  def self.mst_workflow_webhook_response?(response)
+    response.code == "202" and response.body.empty?
+  end
+
+  def self.mst_connector_webhook_response?(response)
+    # For details see:
+    # https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL%2Ctext1#send-messages-using-curl-and-powershell
+    response.code == "200" and response.body == "1"
+  end
+end
+
 module MsTeamsHermes
   ##
   # A class representing Microsoft's webhook message object
@@ -62,15 +74,11 @@ module MsTeamsHermes
 
         response = http.request(req)
 
-        # For details see:
-        # https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL%2Ctext1#send-messages-using-curl-and-powershell
-        if not response.body.empty? and response.body != "1"
-          raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+        return response if MsTeamsWebhookType::mst_workflow_webhook_response?(response)
+        return response if MsTeamsWebhookType::mst_connector_webhook_response?(response)
 
-          raise UnknownError, response.body
-        end
-
-        response
+        raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+        raise UnknownError, response.body
       end
     end
     # rubocop:enable Metrics/AbcSize
