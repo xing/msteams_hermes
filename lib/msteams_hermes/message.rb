@@ -71,10 +71,10 @@ module MsTeamsHermes
 
         response = http.request(req)
 
-        return response if mst_workflow_webhook_response?(response)
-        return response if mst_connector_webhook_response?(response)
+        return response if response_from_mst_workflow_webhook?(response) ||
+                           response_from_mst_connector_webhook?(response)
 
-        raise MessageBodyTooLargeError, body_json.bytesize if response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
+        raise MessageBodyTooLargeError, body_json.bytesize if message_too_large?(response)
 
         raise UnknownError, response.body
       end
@@ -101,14 +101,19 @@ module MsTeamsHermes
     end
 
     private
-    def mst_workflow_webhook_response?(response)
+
+    def response_from_mst_workflow_webhook?(response)
       response.code == "202" and response.body.empty?
     end
 
-    def mst_connector_webhook_response?(response)
+    def response_from_mst_connector_webhook?(response)
       # For details see:
       # https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using?tabs=cURL%2Ctext1#send-messages-using-curl-and-powershell
       response.code == "200" and response.body == "1"
+    end
+
+    def message_too_large?(response)
+      response.body.include? MSTEAMS_MESSAGE_413_ERROR_TOKEN
     end
   end
 end
